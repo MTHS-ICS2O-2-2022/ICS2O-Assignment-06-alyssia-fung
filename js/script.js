@@ -1,5 +1,15 @@
-// Copyright (c) 2020 Mr. Coxall All rights reserved
-//
-// Created by: Mr. Coxall
-// Created on: Sep 2020
-// This file contains the JS functions for index.html
+"use strict"
+
+const getDogImage = async (URLAddress) => {
+  try {
+    const response = await fetch(URLAddress)
+    const json = await response.json()
+    document.getElementById(
+      "dog"
+    ).innerHTML = `<img src="${json.message}" alt="Dog Image">`
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+getDogImage("https://dog.ceo/api/breeds/image/random")
