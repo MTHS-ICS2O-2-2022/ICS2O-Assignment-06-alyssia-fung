@@ -5,14 +5,19 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 )
 
 func getDogImage(urlAddress string) (string, error) {
-	resp, err := http.Get(urlAddress)
+	parsedURL, err := url.Parse(urlAddress)
 	if err != nil {
 		return "", err
 	}
 
+	resp, err := http.Get(parsedURL.String())
+	if err != nil {
+		return "", err
+	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
